@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "591312012487",
+    "firebase_url": "https://academind-flutter-chat.firebaseio.com",
+    "project_id": "academind-flutter-chat",
+    "storage_bucket": "academind-flutter-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591312012487:android:6a25a88d9322b154f76ae2",
+        "android_client_info": {
+          "package_name": "com.example.chat_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "591312012487-mfs3h0jj0o0arj0ofrd3ea45k33blj7h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbzkb9s1aeQjcQ7R1ity1YolCd6vPkkqM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "591312012487-mfs3h0jj0o0arj0ofrd3ea45k33blj7h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
