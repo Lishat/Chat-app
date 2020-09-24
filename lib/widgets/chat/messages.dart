@@ -4,40 +4,32 @@ import 'package:flutter/material.dart';
 import '../chat/message_bubble.dart';
 
 class Messages extends StatelessWidget {
+  final user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      builder: (ctx, futureSnapshot) {
-        if (futureSnapshot.connectionState == ConnectionState.waiting)
+    return StreamBuilder(
+      stream: FirebaseFirestore.instance
+          .collection('chat')
+          .orderBy('createdAt', descending: true)
+          .snapshots(),
+      builder: (ctx, chatSnapshot) {
+        if (chatSnapshot.connectionState == ConnectionState.waiting)
           return Center(
             child: CircularProgressIndicator(),
           );
-        return StreamBuilder(
-          stream: Firestore.instance
-              .collection('chat')
-              .orderBy('createdAt', descending: true)
-              .snapshots(),
-          builder: (ctx, chatSnapshot) {
-            if (chatSnapshot.connectionState == ConnectionState.waiting)
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            final chatDocs = chatSnapshot.data.documents;
-            return ListView.builder(
-              reverse: true,
-              itemBuilder: (ctx, index) => MessageBubble(
-                chatDocs[index]['text'],
-                chatDocs[index]['username'],
-                chatDocs[index]['userImage'],
-                chatDocs[index]['userId'] == futureSnapshot.data.uid,
-                key: ValueKey(chatDocs[index].documentID),
-              ),
-              itemCount: chatDocs.length,
-            );
-          },
+        final chatDocs = chatSnapshot.data.docs;
+        return ListView.builder(
+          reverse: true,
+          itemBuilder: (ctx, index) => MessageBubble(
+            chatDocs[index].data()['text'],
+            chatDocs[index].data()['username'],
+            chatDocs[index].data()['userImage'],
+            chatDocs[index].data()['userId'] == user.uid,
+            key: ValueKey(chatDocs[index].id),
+          ),
+          itemCount: chatDocs.length,
         );
       },
-      future: FirebaseAuth.instance.currentUser(),
     );
   }
 }
